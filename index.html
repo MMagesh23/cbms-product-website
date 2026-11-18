@@ -1,0 +1,636 @@
+<title>Rhema BMS</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=DM+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: sticky nav, hero with dashboard mock, filterable feature grid, three live demos, analytics donut, steps, trust, FAQ, CTA. */
+:root{
+  --bg:#F8F7FF; --surface:#FFFFFF; --surface-2:#EFEDFC; --ink:#1C1B3A; --ink-2:#55557A; --line:#E0DDF5;
+  --pri:#4F46E5; --pri-t:#E3E1FD;
+  --rose:#D81B60; --rose-t:#FFE0EC;
+  --teal:#0B8F83; --teal-t:#D2F4EF;
+  --amber:#F59E0B; --amber-t:#FFEDC2; --amber-ink:#6B4300;
+  --sky:#0A7BC4; --sky-t:#D8F0FF;
+  --on-pri:#FFFFFF; --shadow:0 10px 30px rgba(50,40,140,.12);
+  --f-display:"Outfit","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F0E24; --surface:#1A1940; --surface-2:#232256; --ink:#F1F0FF; --ink-2:#B6B5DB; --line:#33327A;
+  --pri:#8B85FF; --pri-t:#2B2A75; --rose:#FF7FA8; --rose-t:#4D1F37; --teal:#4FD8C8; --teal-t:#12433F;
+  --amber:#FFC857; --amber-t:#4A3A10; --amber-ink:#FFE2A0; --sky:#61C2FF; --sky-t:#123A59;
+  --on-pri:#0F0E24; --shadow:0 10px 30px rgba(0,0,0,.4); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F0E24; --surface:#1A1940; --surface-2:#232256; --ink:#F1F0FF; --ink-2:#B6B5DB; --line:#33327A;
+  --pri:#8B85FF; --pri-t:#2B2A75; --rose:#FF7FA8; --rose-t:#4D1F37; --teal:#4FD8C8; --teal-t:#12433F;
+  --amber:#FFC857; --amber-t:#4A3A10; --amber-ink:#FFE2A0; --sky:#61C2FF; --sky-t:#123A59;
+  --on-pri:#0F0E24; --shadow:0 10px 30px rgba(0,0,0,.4); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0;
+  background-image:radial-gradient(color-mix(in srgb,var(--pri) 14%,transparent) 1.2px,transparent 1.2px);background-size:26px 26px;background-attachment:scroll}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.1;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1160px;margin:0 auto}
+:focus-visible{outline:3px solid var(--rose);outline-offset:3px;border-radius:8px}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pri)}
+.eyebrow::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:currentColor;margin-right:.5rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font:700 1rem var(--f-body);padding:.8rem 1.35rem;min-height:44px;border-radius:14px;border:2px solid transparent;text-decoration:none;cursor:pointer;transition:transform .15s,border-color .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--pri),var(--rose));color:var(--on-pri)}
+.btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.4) 50%,transparent 70%);transform:translateX(-120%)}
+.btn-primary:hover::after{transform:translateX(120%);transition:transform .7s}
+.btn-primary:disabled{opacity:.55;cursor:default;transform:none}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--pri);color:var(--pri)}
+.btn-danger{background:var(--rose);color:var(--on-pri)}
+.sm{padding:.5rem 1rem;font-size:.9rem;border-radius:12px}
+.ico{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.chip{display:inline-block;font-size:.8rem;font-weight:700;padding:.3rem .75rem;border-radius:999px}
+.c-pri{background:var(--pri-t);color:var(--pri)} .c-rose{background:var(--rose-t);color:var(--rose)} .c-teal{background:var(--teal-t);color:var(--teal)} .c-amber{background:var(--amber-t);color:var(--amber-ink)} .c-sky{background:var(--sky-t);color:var(--sky)}
+.t-pri{background:var(--pri-t);color:var(--pri)} .t-rose{background:var(--rose-t);color:var(--rose)} .t-teal{background:var(--teal-t);color:var(--teal)} .t-amber{background:var(--amber-t);color:var(--amber-ink)} .t-sky{background:var(--sky-t);color:var(--sky)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+.ib{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;flex:none}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:0 max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:68px;max-width:1160px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;font:800 1.35rem var(--f-display)}
+.logo{width:36px;height:36px;border-radius:12px;background:conic-gradient(from 200deg,var(--pri),var(--rose),var(--amber),var(--teal),var(--pri));display:grid;place-items:center;animation:spin 14s linear infinite}
+.logo i{width:15px;height:15px;border-radius:5px;background:var(--bg)}
+.nav-links{display:flex;gap:1.5rem;font-weight:700;font-size:.95rem}
+.nav-links a{text-decoration:none;color:var(--ink-2);padding:.3rem 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+.nav-links a:hover{color:var(--pri)}
+.nav-links a.on{color:var(--pri);border-bottom-color:var(--pri)}
+.nav-cta{display:flex;gap:.6rem;align-items:center}
+.theme-btn{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:transform .3s}
+.theme-btn:hover{transform:rotate(25deg) scale(1.1)}
+.progress{position:absolute;left:0;bottom:-1px;height:3px;width:0;background:linear-gradient(90deg,var(--pri),var(--rose),var(--amber),var(--teal))}
+
+/* hero */
+.hero{position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:3rem;align-items:center;padding-block:4.5rem 4rem}
+.hero > *{min-width:0}
+.blobs{position:absolute;inset:-1rem 0;overflow:hidden;pointer-events:none;z-index:-1;border-radius:40px}
+.blobs i{position:absolute;border-radius:50%;filter:blur(55px);opacity:.65;animation:drift 14s ease-in-out infinite}
+.blobs i:nth-child(1){width:320px;height:320px;background:var(--pri-t);top:-70px;left:-40px}
+.blobs i:nth-child(2){width:300px;height:300px;background:var(--rose-t);top:15%;right:4%;animation-delay:-4s}
+.blobs i:nth-child(3){width:280px;height:280px;background:var(--amber-t);bottom:-60px;left:38%;animation-delay:-8s}
+.blobs i:nth-child(4){width:240px;height:240px;background:var(--teal-t);bottom:8%;right:-30px;animation-delay:-11s}
+.pill-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+.pill-row .chip{animation:float 4s ease-in-out infinite}
+.pill-row .chip:nth-child(2){animation-delay:-1.3s}.pill-row .chip:nth-child(3){animation-delay:-2.6s}
+.hero h1{font-size:clamp(2.5rem,6vw,4.2rem);font-weight:800;animation:rise .8s both}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--pri),var(--rose),var(--amber),var(--teal),var(--pri));background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:shine 6s linear infinite}
+.lead{font-size:1.2rem;color:var(--ink-2);margin-top:1.3rem;max-width:34rem;animation:rise .8s .12s both}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem;animation:rise .8s .24s both}
+.hero-cta .btn-primary{animation:ring 2.2s infinite}
+.proof{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:2.2rem;color:var(--ink-2);font-size:.95rem;animation:rise .8s .36s both}
+.proof b{display:block;font:800 1.7rem var(--f-display)}
+.proof > div:nth-child(1) b{color:var(--pri)} .proof > div:nth-child(2) b{color:var(--rose)} .proof > div:nth-child(3) b{color:var(--teal)}
+
+/* mock */
+.mock{position:relative;padding:0 0 2.6rem}
+.m-main{padding:1.2rem 1.3rem;transition:transform .15s ease-out;will-change:transform}
+.m-top{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap}
+.m-top b{font:700 1.1rem var(--f-display)}
+.tag{display:inline-flex;align-items:center;gap:.4rem;font-size:.76rem;font-weight:700;color:var(--teal);background:var(--teal-t);padding:.25rem .7rem;border-radius:999px}
+.tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--teal);animation:pulse 1.6s infinite}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin:1rem 0}
+.stat{border-radius:14px;padding:.7rem .8rem;transition:transform .2s}
+.stat:hover{transform:scale(1.06)}
+.stat b{display:block;font:800 1.5rem var(--f-display);line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:.78rem;font-weight:700}
+.rem h4{font-size:.95rem;margin-bottom:.5rem;color:var(--ink-2)}
+.rem-row{display:flex;align-items:center;gap:.7rem;padding:.45rem 0;border-top:1px solid var(--line);font-weight:700;font-size:.92rem}
+.rem-row small{margin-left:auto;font-weight:700;color:var(--ink-2);white-space:nowrap}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font:800 .8rem var(--f-display);flex:none}
+.m-float{position:absolute;padding:.7rem .9rem;display:flex;gap:.6rem;align-items:center;font-size:.84rem;font-weight:700}
+.f1{right:-.4rem;bottom:.2rem;--r:3deg;animation:float 6s ease-in-out infinite}
+.f2{left:-.4rem;bottom:1.2rem;--r:-3deg;animation:float 5s ease-in-out -2s infinite}
+.m-float small{display:block;font-weight:600;color:var(--ink-2)}
+
+/* ticker */
+.ticker{overflow:hidden;border-block:1px solid var(--line);padding:1rem 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ticker-in{display:flex;gap:.8rem;width:max-content;animation:marquee 32s linear infinite}
+.ticker:hover .ticker-in{animation-play-state:paused}
+.ticker .chip{font-size:.95rem;padding:.45rem 1.1rem;white-space:nowrap}
+
+/* sections */
+section{padding-block:4.5rem}
+.sec-head{max-width:40rem;margin-bottom:2.6rem}
+.sec-head h2{font-size:clamp(2rem,4.2vw,3rem);font-weight:800;margin-top:.5rem;padding-bottom:.08em;background:linear-gradient(90deg,var(--ink) 60%,var(--pri));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.sec-head p{color:var(--ink-2);margin-top:.9rem;font-size:1.1rem}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:-1rem 0 1.6rem}
+.fchip{font:700 .95rem var(--f-body);padding:.5rem 1.1rem;min-height:44px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;transition:background .2s,border-color .2s,transform .15s}
+.fchip:hover{transform:translateY(-2px);border-color:var(--pri)}
+.fchip[aria-pressed="true"]{background:var(--pri);border-color:var(--pri);color:var(--on-pri)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1.2rem}
+.feat{position:relative;padding:1.5rem;--c:var(--pri);--ct:var(--pri-t);transition:transform .25s,box-shadow .25s,border-color .25s,background .25s}
+.grid .feat:nth-child(5n+2){--c:var(--rose);--ct:var(--rose-t)}
+.grid .feat:nth-child(5n+3){--c:var(--teal);--ct:var(--teal-t)}
+.grid .feat:nth-child(5n+4){--c:var(--amber);--ct:var(--amber-t)}
+.grid .feat:nth-child(5n){--c:var(--sky);--ct:var(--sky-t)}
+.feat > *{position:relative}
+.feat::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--c) 22%,transparent),transparent 70%);opacity:0;transition:opacity .25s;pointer-events:none}
+.feat:hover::before{opacity:1}
+.feat:hover{transform:translateY(-8px) rotate(-.6deg);border-color:var(--c);box-shadow:0 18px 40px color-mix(in srgb,var(--c) 28%,transparent)}
+.feat:hover .ib{animation:wiggle .6s}
+.feat h3{font-size:1.3rem;margin:1rem 0 .4rem}
+.feat p{color:var(--ink-2);font-size:.98rem}
+code{font:700 .86em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--surface-2);padding:.15rem .45rem;border-radius:7px}
+
+/* demos */
+.demos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:1.2rem}
+.demos > *{min-width:0}
+.demo{padding:1.5rem;display:flex;flex-direction:column;gap:1.1rem}
+.demo.wide{grid-column:1/-1}
+.demo-h{display:flex;gap:.9rem;align-items:center}
+.demo-h > div{min-width:0}
+.demo-h h3{font-size:1.3rem}
+.demo-h p{color:var(--ink-2);font-size:.92rem;line-height:1.4}
+.msg{min-height:1.4em;font-size:.92rem;color:var(--ink-2);font-weight:600}
+.f{display:grid;gap:.35rem;font-weight:700;font-size:.9rem;min-width:0}
+input[type=range]{width:100%;accent-color:var(--pri);height:36px;margin:0}
+select,input[type=number],input[type=text]{font:600 1rem var(--f-body);padding:.6rem .8rem;min-height:44px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink);width:100%;min-width:0}
+select:disabled{opacity:.7;background:var(--surface-2)}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.8rem}
+.rules{display:grid;gap:.5rem}
+.rr{display:flex;gap:.7rem;align-items:center;padding:.6rem .8rem;border-radius:14px;background:var(--surface-2);animation:pop .3s ease both;font-weight:700;font-size:.95rem}
+.rr span:last-child{margin-left:auto;text-align:right}
+.rr small{display:block;font-weight:600;color:var(--ink-2);font-size:.78rem}
+.rr.block{background:var(--rose-t);color:var(--rose)}
+.dotc{width:12px;height:12px;border-radius:50%;flex:none}
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:560px}
+th{text-align:left;font:700 .78rem var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);padding:.7rem .8rem;background:var(--surface-2);white-space:nowrap}
+td{padding:.6rem .8rem;border-top:1px solid var(--line);font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+tbody tr{animation:pop .25s ease both}
+.row-actions{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:space-between}
+.fam{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.fam > *{min-width:0}
+.pane{border:2px solid var(--line);border-radius:18px;padding:1rem;display:grid;gap:.5rem;align-content:start;min-height:230px}
+.pane h4{font-size:1.05rem;display:flex;justify-content:space-between;gap:.5rem;align-items:center}
+.mrow{display:flex;align-items:center;gap:.6rem;padding:.4rem .5rem;border-radius:12px;background:var(--surface-2);animation:pop .3s ease both;flex-wrap:wrap}
+.mrow b{font-size:.95rem;min-width:0;overflow-wrap:anywhere}
+.mrow .grow{flex:1;min-width:0}
+.mrow .btn{margin-left:auto}
+.assign{border:2px solid var(--rose);background:var(--rose-t);border-radius:14px;padding:.8rem;display:grid;gap:.6rem;animation:pop .3s ease both}
+.assign b{color:var(--rose)}
+.assign .row-actions{justify-content:flex-start}
+
+/* analytics */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+.split > *{min-width:0}
+.chart-card{padding:1.5rem;display:grid;gap:1.2rem}
+.chart-card h3{font-size:1.15rem}
+.note{font-size:.8rem;color:var(--ink-2);margin-top:.15rem;font-weight:600}
+.donut-wrap{display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap}
+.donut{width:170px;height:170px;flex:none}
+.donut circle{fill:none;stroke-width:6;transition:stroke-dasharray 1s cubic-bezier(.2,.8,.2,1),opacity .25s,stroke-width .25s}
+.donut .trk{stroke:var(--surface-2)}
+.donut text{text-anchor:middle;fill:var(--ink)}
+.legend{display:grid;gap:.4rem;flex:1;min-width:150px}
+.lg{display:flex;align-items:center;gap:.6rem;font:700 .92rem var(--f-body);padding:.45rem .7rem;min-height:44px;border-radius:12px;border:2px solid transparent;background:var(--surface-2);color:var(--ink);cursor:pointer;text-align:left}
+.lg:hover,.lg[aria-pressed="true"]{border-color:var(--c)}
+.lg small{margin-left:auto;color:var(--ink-2);font-weight:600}
+.vbars{display:grid;gap:.7rem}
+.vr{display:grid;grid-template-columns:5.5rem 1fr 2.4rem;gap:.7rem;align-items:center;font-weight:700;font-size:.9rem}
+.bar{height:10px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;transform-origin:left;animation:grow 1.1s cubic-bezier(.2,.8,.2,1) backwards}
+.vr em{font-style:normal;text-align:right;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.agecats{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.2rem}
+.sidenote{margin-top:1.4rem;font-size:.95rem;color:var(--ink-2)}
+
+/* steps */
+#how{background:var(--surface-2);border-radius:36px;padding-inline:clamp(1rem,3vw,2.5rem)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;counter-reset:s}
+.step{padding:1.3rem;border-radius:20px;counter-increment:s;transition:transform .25s}
+.step:hover{transform:translateY(-6px) rotate(1deg)}
+.step::before{content:counter(s);display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--surface);font:800 1.5rem var(--f-display);box-shadow:var(--shadow);margin-bottom:.7rem}
+.step:hover::before{animation:spin .6s}
+.step h3{font-size:1.15rem;margin-bottom:.35rem}
+.step p{font-size:.93rem}
+
+.trust{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:2.4rem}
+.trust h2{font-size:clamp(1.8rem,3.6vw,2.6rem);font-weight:800;margin-top:.5rem}
+.trust ul{list-style:none;padding:0;margin:1.6rem 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem}
+.trust li{transition:transform .2s}
+.trust li:hover{transform:translateY(-4px)}
+.trust li b{display:block;font:700 1.1rem var(--f-display)}
+.trust li:nth-child(1) b{color:var(--pri)} .trust li:nth-child(2) b{color:var(--rose)} .trust li:nth-child(3) b{color:var(--teal)} .trust li:nth-child(4) b{color:var(--sky)}
+.trust li span{color:var(--ink-2);font-size:.95rem}
+
+.faq{display:grid;gap:.8rem;max-width:50rem}
+details{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1rem 1.2rem;transition:border-color .2s,box-shadow .2s}
+details:hover,details[open]{border-color:var(--pri);box-shadow:var(--shadow)}
+summary{cursor:pointer;font:700 1.1rem var(--f-display);list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.4rem;color:var(--pri);transition:transform .25s}
+details[open] summary{color:var(--pri)}
+details[open] summary::after{content:"\2212";transform:rotate(180deg)}
+details p{margin-top:.7rem;color:var(--ink-2)}
+
+.cta{border-radius:32px;padding:3.2rem 2rem;text-align:center;border:1px solid var(--line);background:linear-gradient(120deg,var(--pri-t),var(--rose-t),var(--amber-t),var(--teal-t),var(--pri-t));background-size:300% 300%;animation:gradmove 14s ease infinite}
+.cta h2{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;max-width:30rem;margin:0 auto}
+.cta p{color:var(--ink-2);margin:1rem auto 1.8rem;max-width:34rem}
+.cta .hero-cta{justify-content:center;margin-top:0;animation:none}
+footer{padding-block:2.4rem 3rem;color:var(--ink-2);font-size:.92rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+footer a{font-weight:700;color:var(--pri)}
+
+.toast{position:fixed;left:50%;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--ink);color:var(--bg);padding:.7rem 1.2rem;border-radius:14px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:40;max-width:calc(100vw - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@keyframes shine{to{background-position:300% 0}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-12px) rotate(var(--r,0deg))}}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-24px) scale(1.08)}66%{transform:translate(-22px,18px) scale(.94)}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--teal) 60%,transparent)}100%{box-shadow:0 0 0 12px transparent}}
+@keyframes ring{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--pri) 50%,transparent)}100%{box-shadow:0 0 0 16px transparent}}
+@keyframes marquee{to{transform:translateX(-50%)}}
+@keyframes gradmove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes pop{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+@keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-10deg) scale(1.1)}75%{transform:rotate(10deg) scale(1.1)}}
+@keyframes rise{from{transform:translateY(32px) scale(.97)}to{transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@supports (animation-timeline:view()){
+  .feat,.step,.chart-card,.trust,.cta,details,.demo{animation:rise linear backwards;animation-timeline:view();animation-range:entry 0% entry 45%}
+}
+
+@media (max-width:900px){
+  .hero,.split{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .hero{padding-block:2.5rem}
+  .mock{padding-bottom:3.8rem}
+}
+@media (max-width:760px){.fam{grid-template-columns:1fr}}
+@media (max-width:480px){
+  .trust{padding:1.6rem}
+  .vr{grid-template-columns:4.8rem 1fr 2.2rem}
+  .nav-cta .btn{padding:.6rem .9rem;font-size:.9rem}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}.hero h1 em{background-position:0 0}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h14V10M10 20v-6h4v6"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></symbol>
+  <symbol id="i-cake" viewBox="0 0 24 24"><path d="M4 21h16v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2zM4 17c2 1.5 4 1.5 6 0s4-1.5 6 0 3 1 4 0M12 12V8M12 5v.01"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/></symbol>
+</svg>
+
+<header class="nav"><i class="progress" id="prog"></i>
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="Rhema BMS home"><span class="logo"><i></i></span>Rhema BMS</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#features">Features</a><a href="#try">Try it</a><a href="#insights">Analytics</a><a href="#how">How it works</a><a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme"><svg class="ico"><use href="#i-moon"/></svg></button>
+      <a class="btn btn-primary" href="https://www.rhema.co.in/" target="_blank" rel="noopener">Request a demo</a>
+    </div>
+  </div>
+</header>
+
+<main id="top" class="wrap">
+  <div class="hero">
+    <div class="blobs" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div>
+      <div class="pill-row"><span class="chip c-pri">Believer Management System</span><span class="chip c-rose">Family records</span><span class="chip c-teal">Excel and PDF</span></div>
+      <h1>Know your congregation, <em>family by family</em></h1>
+      <p class="lead">Keep every family and believer record in one secure place. Track baptisms and marriages, see birthdays and anniversaries coming up, and export clean reports in a click.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://www.rhema.co.in/" target="_blank" rel="noopener">Request a demo</a>
+        <a class="btn btn-ghost" href="#try">Try the live demos</a>
+      </div>
+      <div class="proof">
+        <div><b>7</b>days of reminders ahead</div>
+        <div><b>14</b>columns in every export</div>
+        <div><b>IST</b>dates always in India time</div>
+      </div>
+    </div>
+
+    <div class="mock" aria-label="Example of the dashboard">
+      <div class="card m-main">
+        <div class="m-top"><b>Dashboard</b><span class="tag">Sample data</span></div>
+        <div class="stats">
+          <div class="stat c-pri"><b>128</b><span>Families</span></div>
+          <div class="stat c-rose"><b>642</b><span>Believers</span></div>
+          <div class="stat c-teal"><b>78%</b><span>Baptized</span></div>
+        </div>
+        <div class="rem">
+          <h4>Birthdays in the next 7 days</h4>
+          <div class="rem-row"><span class="av c-amber">DA</span>Daniel A.<small>in 2 days</small></div>
+          <div class="rem-row"><span class="av c-sky">GS</span>Grace S.<small>in 5 days</small></div>
+          <div class="rem-row"><span class="av c-rose">MT</span>Mercy T.<small>in 6 days</small></div>
+        </div>
+      </div>
+      <div class="card m-float f1"><span class="ib t-teal" style="width:38px;height:38px"><svg class="ico"><use href="#i-check"/></svg></span><span>believers.xlsx<small>Exported, 14 columns</small></span></div>
+      <div class="card m-float f2"><span class="ib t-rose" style="width:38px;height:38px"><svg class="ico"><use href="#i-cake"/></svg></span><span>Anniversary<small>Arul and Meena, in 4 days</small></span></div>
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true"><div class="ticker-in" id="ticker"></div></div>
+
+  <section id="features">
+    <div class="sec-head"><span class="eyebrow">Everything in one place</span><h2>Built around how congregations are organised</h2><p>Families come first, believers belong to families, and every rule the system enforces matches how your office already works.</p></div>
+    <div class="filters" role="group" aria-label="Filter features">
+      <button class="fchip" type="button" data-f="all" aria-pressed="true">All</button>
+      <button class="fchip" type="button" data-f="records" aria-pressed="false">Records</button>
+      <button class="fchip" type="button" data-f="reports" aria-pressed="false">Reports</button>
+      <button class="fchip" type="button" data-f="safety" aria-pressed="false">Safety</button>
+    </div>
+    <div class="grid">
+      <article class="card feat"><span class="ib t-pri"><svg class="ico"><use href="#i-home"/></svg></span><h3>Families first</h3><p>Every family has a head from day one. Codes like <code>FAM-0001</code> are made for you, with village, address and status alongside.</p></article>
+      <article class="card feat"><span class="ib t-rose"><svg class="ico"><use href="#i-user"/></svg></span><h3>Complete believer records</h3><p>Personal, spiritual, marital and work details in one profile, with colour badges for status, type and baptism.</p></article>
+      <article class="card feat"><span class="ib t-teal"><svg class="ico"><use href="#i-spark"/></svg></span><h3>Smart rules</h3><p>Age sets the member type, marital fields and occupation for you. Wife and Husband links are made automatically.</p></article>
+      <article class="card feat"><span class="ib t-amber"><svg class="ico"><use href="#i-cake"/></svg></span><h3>Birthday and anniversary reminders</h3><p>See who is celebrating in the next 7 days on the dashboard, even across the new year, and pull the full list for the month.</p></article>
+      <article class="card feat"><span class="ib t-sky"><svg class="ico"><use href="#i-file"/></svg></span><h3>Reports in Excel and PDF</h3><p>Filter by age, village, baptism, marital status and more, then export a branded spreadsheet or a landscape PDF with a summary page.</p></article>
+      <article class="card feat"><span class="ib t-pri"><svg class="ico"><use href="#i-chart"/></svg></span><h3>Congregation analytics</h3><p>Age groups, gender, baptism rate, unbaptized believers over 15, and your busiest villages, from live data.</p></article>
+      <article class="card feat"><span class="ib t-rose"><svg class="ico"><use href="#i-trash"/></svg></span><h3>Trash with restore</h3><p>Deleted records wait in Trash. Restore them in a click, or delete forever after a clear warning.</p></article>
+      <article class="card feat"><span class="ib t-teal"><svg class="ico"><use href="#i-lock"/></svg></span><h3>Secure admin access</h3><p>Token-based sign-in, hashed passwords, a password strength meter and fixed fields that cannot be changed by accident.</p></article>
+    </div>
+  </section>
+
+  <section id="try">
+    <div class="sec-head"><span class="eyebrow">Try it yourself</span><h2>Play with the rules and reports</h2><p>Small working demos with sample people. Nothing is saved or sent.</p></div>
+    <div class="demos">
+      <div class="card demo">
+        <div class="demo-h"><span class="ib t-teal"><svg class="ico"><use href="#i-spark"/></svg></span><div><h3>Smart rules</h3><p>Change age, relationship and marital status to see what the form does.</p></div></div>
+        <div class="f"><label for="ruleAge" id="ruleAgeLbl">Age: 32 years</label><input id="ruleAge" type="range" min="0" max="80" value="32"></div>
+        <div class="ctl">
+          <label class="f" for="ruleRel">Relationship to head
+            <select id="ruleRel"><option>Son</option><option>Daughter</option><option>Wife</option><option>Husband</option><option>Father</option><option>Mother</option><option>Other</option></select>
+          </label>
+          <label class="f" for="ruleMar">Marital status
+            <select id="ruleMar"><option>Single</option><option>Married</option><option>Widowed</option></select>
+          </label>
+        </div>
+        <div class="rules" id="ruleOut" aria-live="polite"></div>
+      </div>
+
+      <div class="card demo">
+        <div class="demo-h"><span class="ib t-rose"><svg class="ico"><use href="#i-trash"/></svg></span><div><h3>Heads, Trash and restore</h3><p>Try deleting the family head, or any member.</p></div></div>
+        <div class="fam">
+          <div class="pane"><h4>Family FAM-0001 <span class="chip c-pri">Salem</span></h4><div id="famList" style="display:grid;gap:.5rem"></div><div id="assignBox"></div></div>
+          <div class="pane"><h4>Trash <span class="chip c-rose" id="trashCount">0</span></h4><div id="trashList" style="display:grid;gap:.5rem"></div></div>
+        </div>
+        <div class="row-actions"><p class="msg" id="famMsg" aria-live="polite"></p><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn btn-ghost sm" id="famDelAll" type="button">Delete family</button><button class="btn btn-ghost sm" id="famReset" type="button">Reset demo</button></div></div>
+      </div>
+
+      <div class="card demo wide">
+        <div class="demo-h"><span class="ib t-sky"><svg class="ico"><use href="#i-file"/></svg></span><div><h3>Custom filter report</h3><p>Combine filters and the results update. Sample believers only.</p></div></div>
+        <div class="ctl" id="repCtl">
+          <label class="f" for="fG">Gender<select id="fG"><option value="">All</option><option>Male</option><option>Female</option></select></label>
+          <label class="f" for="fM">Marital status<select id="fM"><option value="">All</option><option>Single</option><option>Married</option><option>Widowed</option></select></label>
+          <label class="f" for="fB">Baptized<select id="fB"><option value="">All</option><option>Yes</option><option>No</option></select></label>
+          <label class="f" for="fT">Member type<select id="fT"><option value="">All</option><option>Member</option><option>Youth</option><option>Child</option></select></label>
+          <label class="f" for="fMin">Min age<input id="fMin" type="number" min="0" max="120" inputmode="numeric" placeholder="0"></label>
+          <label class="f" for="fMax">Max age<input id="fMax" type="number" min="0" max="120" inputmode="numeric" placeholder="120"></label>
+          <label class="f" for="fV">Village<input id="fV" type="text" placeholder="e.g. Salem"></label>
+        </div>
+        <div class="tscroll"><table><thead><tr><th>Name</th><th>Gender</th><th>Age</th><th>Type</th><th>Marital</th><th>Baptized</th><th>Village</th></tr></thead><tbody id="repBody"></tbody></table></div>
+        <div class="row-actions"><span class="msg" id="repCount"></span><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn btn-ghost sm" id="repX" type="button">Export Excel</button><button class="btn btn-primary sm" id="repP" type="button">Export PDF</button></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="insights">
+    <div class="split">
+      <div>
+        <span class="eyebrow">See the whole picture</span>
+        <h2 style="font-size:clamp(2rem,4.2vw,3rem);font-weight:800;margin-top:.5rem">Understand who your congregation is</h2>
+        <p style="color:var(--ink-2);margin-top:.9rem;font-size:1.1rem">Four age groups, gender, baptism rate and village strength, drawn from live records. Trashed and inactive records stay out of the charts.</p>
+        <div class="agecats"><span class="chip c-amber">Children 0 to 12</span><span class="chip c-pri">Youth 13 to 29</span><span class="chip c-teal">Adults 30 to 59</span><span class="chip c-rose">Seniors 60 and above</span></div>
+        <p class="sidenote">Baptism analytics also lists believers older than 15 who are not yet baptized, so pastoral follow-up is easy to plan.</p>
+      </div>
+      <div class="card chart-card">
+        <div><h3>Age distribution</h3><p class="note">Sample data. Tap a group to highlight it.</p></div>
+        <div class="donut-wrap">
+          <svg class="donut" viewBox="0 0 42 42" role="img" aria-label="Age distribution donut chart" id="donut"></svg>
+          <div class="legend" id="legend"></div>
+        </div>
+        <div><h3>Top villages</h3><p class="note">Sample data, members per village</p></div>
+        <div class="vbars" id="vbars"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="sec-head"><span class="eyebrow">From first family to yearly report</span><h2>Five steps to tidy records</h2></div>
+    <div class="steps">
+      <div class="step c-pri"><h3>Create a family</h3><p>Add the family and its head believer together in one step.</p></div>
+      <div class="step c-rose"><h3>Add members</h3><p>Pick each person's relationship to the head and fill in their details.</p></div>
+      <div class="step c-teal"><h3>Keep it current</h3><p>Edit details, assign a new head, and restore anything removed by mistake.</p></div>
+      <div class="step c-amber"><h3>Plan with reminders</h3><p>Check upcoming birthdays and anniversaries every week.</p></div>
+      <div class="step c-sky"><h3>Report and review</h3><p>Export Excel or PDF, then read the analytics for the year.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="trust">
+      <span class="eyebrow">Careful with personal records</span>
+      <h2>Private, predictable and easy to undo</h2>
+      <ul>
+        <li><b>Protected sign-in</b><span>Token-based sessions and hashed passwords, with a strength meter when you change yours.</span></li>
+        <li><b>Rules that stop mistakes</b><span>Fixed fields, one head per family and a check on every spouse link.</span></li>
+        <li><b>Nothing lost by accident</b><span>Deleting moves records to Trash first. Permanent deletion needs a confirmation.</span></li>
+        <li><b>Indian time, always</b><span>Ages, reminders and report timestamps are calculated in IST.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="sec-head"><span class="eyebrow">Questions</span><h2>Quick answers</h2></div>
+    <div class="faq">
+      <details><summary>Can we add a believer without a family?</summary><p>No. Every believer belongs to a family, and a family is created together with its head. This keeps your records connected and your counts accurate.</p></details>
+      <details><summary>What happens when the family head needs to be removed?</summary><p>You choose a replacement first. The chosen member becomes the new head and the original head moves to Trash.</p></details>
+      <details><summary>Can we get deleted records back?</summary><p>Yes. Deleted believers wait in Trash until you restore them or delete them forever. Trashed records are left out of reports and analytics.</p></details>
+      <details><summary>What can we export?</summary><p>Any filtered report can be exported as an Excel file or an A4 landscape PDF with a cover summary page, including the birthday and anniversary reminder lists.</p></details>
+      <details><summary>Do we need to install anything?</summary><p>No. It runs in any modern browser, and the left-hand menu takes you to each module.</p></details>
+    </div>
+  </section>
+
+  <section>
+    <div class="cta">
+      <h2>Give your church office a calmer year</h2>
+      <p>Rhema BMS is a product of Rhema Solutions. Tell us about your congregation and we will arrange a walkthrough.</p>
+      <div class="hero-cta"><a class="btn btn-primary" href="https://www.rhema.co.in/" target="_blank" rel="noopener">Talk to Rhema Solutions</a><a class="btn btn-ghost" href="#top">Back to top</a></div>
+    </div>
+  </section>
+
+  <footer><span>Rhema BMS, a product of <a href="https://www.rhema.co.in/" target="_blank" rel="noopener">Rhema Solutions</a></span><span>Believer management for congregations</span></footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  function $(id){return document.getElementById(id);}
+  var rm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var toast=$("toast"),tt;
+  function say(m){toast.textContent=m;toast.classList.add("show");clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove("show");},2600);}
+  function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+
+  /* ticker */
+  var tk=[["Family records","c-pri"],["Baptism tracking","c-rose"],["Birthday reminders","c-amber"],["Anniversaries","c-teal"],["Excel export","c-sky"],["PDF reports","c-pri"],["Age analytics","c-rose"],["Village statistics","c-teal"],["Trash and restore","c-amber"],["Spouse linking","c-sky"]],th="";
+  for(var q=0;q<2;q++)tk.forEach(function(t){th+='<span class="chip '+t[1]+'">'+t[0]+'</span>';});
+  $("ticker").innerHTML=th;
+
+  /* scroll progress, nav highlight */
+  var prog=$("prog");
+  function onScroll(){var d=document.documentElement,m=d.scrollHeight-d.clientHeight;prog.style.width=(m>0?Math.min(100,window.scrollY/m*100):0)+"%";}
+  window.addEventListener("scroll",onScroll,{passive:true});onScroll();
+  var links=[].slice.call(document.querySelectorAll(".nav-links a")),map={};
+  links.forEach(function(a){map[a.getAttribute("href").slice(1)]=a;});
+  if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove("on");});var a=map[e.target.id];if(a)a.classList.add("on");}});},{rootMargin:"-45% 0px -50% 0px"});Object.keys(map).forEach(function(id){var s=$(id);if(s)io.observe(s);});}
+
+  /* hero tilt and count-up */
+  var mock=document.querySelector(".mock"),mm=document.querySelector(".m-main");
+  if(!rm){
+    mock.addEventListener("pointermove",function(e){var r=mock.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;mm.style.transform="perspective(900px) rotateY("+(x*10)+"deg) rotateX("+(-y*8)+"deg)";});
+    mock.addEventListener("pointerleave",function(){mm.style.transform="";});
+    [].forEach.call(document.querySelectorAll(".proof b"),function(b){var t=parseInt(b.textContent,10);if(!t)return;var s=null;b.textContent="0";function f(ts){if(!s)s=ts;var p=Math.min(1,(ts-s)/900);b.textContent=Math.round(t*p);if(p<1)requestAnimationFrame(f);}requestAnimationFrame(f);});
+  }
+
+  /* feature filters and spotlight */
+  var cats=["records","records","safety","reports","reports","reports","safety","safety"];
+  var cards=[].slice.call(document.querySelectorAll(".grid .feat")),chips=[].slice.call(document.querySelectorAll(".fchip"));
+  cards.forEach(function(c,i){c.dataset.cat=cats[i];c.addEventListener("pointermove",function(e){var r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px");});});
+  chips.forEach(function(b){b.addEventListener("click",function(){var f=b.dataset.f;chips.forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});cards.forEach(function(c){c.hidden=!(f==="all"||c.dataset.cat===f);});});});
+
+  /* demo 1: smart rules */
+  var age=$("ruleAge"),rel=$("ruleRel"),mar=$("ruleMar"),userMar="Single";
+  function rr(label,val,note,color,block){
+    var d=el("div","rr"+(block?" block":"")),dot=el("span","dotc");dot.style.background=color;
+    var l=el("span",null,label),r=el("span"),v=el("span",null,val);r.appendChild(v);
+    if(note){var s=el("small",null,note);r.appendChild(s);}
+    d.appendChild(dot);d.appendChild(l);d.appendChild(r);return d;
+  }
+  function rules(){
+    var a=+age.value,rl=rel.value,spouse=(rl==="Wife"||rl==="Husband"),blocked=spouse&&a<18,eff,note="";
+    $("ruleAgeLbl").textContent="Age: "+a+" "+(a===1?"year":"years");
+    if(a<18){eff="Single";note="Under 18, set automatically";}
+    else if(spouse){eff="Married";note="Wife or Husband, set automatically";}
+    else eff=userMar;
+    mar.value=eff;mar.disabled=(a<18||spouse);
+    var type=a<=12?"Child":a<=30?(eff==="Single"?"Youth":"Member"):"Member";
+    var out=$("ruleOut");out.innerHTML="";
+    if(blocked)out.appendChild(rr("Cannot add as "+rl,"Must be 18 or older","","var(--rose)",true));
+    out.appendChild(rr("Marital status",eff,note,"var(--pri)"));
+    out.appendChild(rr("Wedding date field",(eff==="Married"&&a>=18)?"Shown":"Hidden",a<18?"Marriage fields hidden under 18":"","var(--amber)"));
+    out.appendChild(rr("Suggested member type",type,"You can still override it","var(--teal)"));
+    out.appendChild(rr("Occupation",a<=5?"Locked to Child":"Your choice",a<=5?"Unlocks when they turn 6":"","var(--sky)"));
+    if(spouse&&!blocked)out.appendChild(rr("Spouse link","Linked to the head","Only one spouse per head","var(--rose)"));
+  }
+  age.addEventListener("input",rules);rel.addEventListener("change",rules);
+  mar.addEventListener("change",function(){userMar=mar.value;rules();});
+  rules();
+
+  /* demo 2: heads, trash, restore */
+  var seed=[{id:1,n:"Arul K.",r:"Head",h:true},{id:2,n:"Meena A.",r:"Wife"},{id:3,n:"Daniel A.",r:"Son"},{id:4,n:"Ruth A.",r:"Daughter"}];
+  var fam,trash,pend,conf,cols=["c-pri","c-rose","c-teal","c-amber"];
+  function reset(){fam=seed.map(function(x){return {id:x.id,n:x.n,r:x.r,h:!!x.h};});trash=[];pend=null;conf=null;$("famMsg").textContent="";drawFam();}
+  function ini(n){return n.split(" ").map(function(w){return w[0];}).join("").slice(0,2);}
+  function drawFam(){
+    var fl=$("famList"),tl=$("trashList"),ab=$("assignBox");fl.innerHTML="";tl.innerHTML="";ab.innerHTML="";
+    if(!fam.length)fl.appendChild(el("p","msg","No members left. Restore someone from Trash."));
+    fam.forEach(function(m){
+      var row=el("div","mrow"),av=el("span","av "+cols[m.id%4],ini(m.n)),nm=el("b","grow",m.n),role=el("span","chip "+(m.h?"c-pri":"c-sky"),m.r);
+      var del=el("button","btn btn-ghost sm","Delete");del.type="button";del.setAttribute("aria-label","Move "+m.n+" to Trash");
+      del.addEventListener("click",function(){conf=null;delMember(m);});
+      row.appendChild(av);row.appendChild(nm);row.appendChild(role);row.appendChild(del);fl.appendChild(row);
+    });
+    if(pend){
+      var box=el("div","assign"),others=fam.filter(function(x){return x.id!==pend.id;});
+      box.appendChild(el("b",null,pend.n+" is the family head"));
+      box.appendChild(el("span","msg","Choose a new head before this record can be deleted."));
+      var sel=document.createElement("select");sel.id="newHead";sel.setAttribute("aria-label","New head");
+      others.forEach(function(o){var op=document.createElement("option");op.value=o.id;op.textContent=o.n;sel.appendChild(op);});
+      var acts=el("div","row-actions"),go=el("button","btn btn-danger sm","Assign and continue"),no=el("button","btn btn-ghost sm","Cancel");go.type=no.type="button";
+      go.addEventListener("click",function(){var nid=+sel.value;fam.forEach(function(x){if(x.id===nid){x.h=true;x.r="Head";}});var old=fam.filter(function(x){return x.id===pend.id;})[0];old.h=false;fam=fam.filter(function(x){return x!==old;});trash.push(old);say(old.n+" moved to Trash");$("famMsg").textContent=fam.filter(function(x){return x.id===nid;})[0].n+" is now the head.";pend=null;drawFam();});
+      no.addEventListener("click",function(){pend=null;drawFam();});
+      acts.appendChild(go);acts.appendChild(no);box.appendChild(sel);box.appendChild(acts);ab.appendChild(box);
+    }
+    $("trashCount").textContent=trash.length;
+    if(!trash.length)tl.appendChild(el("p","msg","Trash is empty."));
+    trash.forEach(function(m){
+      var row=el("div","mrow"),nm=el("b","grow",m.n);
+      var rs=el("button","btn btn-ghost sm","Restore"),df=el("button","btn "+(conf===m.id?"btn-danger":"btn-ghost")+" sm",conf===m.id?"Confirm delete":"Delete forever");rs.type=df.type="button";
+      rs.setAttribute("aria-label","Restore "+m.n);df.setAttribute("aria-label","Delete "+m.n+" forever");
+      rs.addEventListener("click",function(){conf=null;trash=trash.filter(function(x){return x!==m;});var hasHead=fam.some(function(x){return x.h;});m.h=!hasHead;m.r=hasHead?"Member":"Head";fam.push(m);$("famMsg").textContent=m.n+" restored"+(hasHead?".":" as head, because every family needs one.");drawFam();});
+      df.addEventListener("click",function(){if(conf===m.id){trash=trash.filter(function(x){return x!==m;});conf=null;$("famMsg").textContent=m.n+" permanently deleted. This cannot be undone.";}else conf=m.id;drawFam();});
+      row.appendChild(nm);row.appendChild(rs);row.appendChild(df);tl.appendChild(row);
+    });
+  }
+  function delMember(m){
+    if(m.h&&fam.length>1){pend=m;$("famMsg").textContent="Head protected: assign a new head first.";drawFam();return;}
+    fam=fam.filter(function(x){return x!==m;});m.h=false;trash.push(m);pend=null;$("famMsg").textContent=m.n+" moved to Trash.";drawFam();
+  }
+  $("famDelAll").addEventListener("click",function(){if(!fam.length)return;fam.forEach(function(m){m.h=false;trash.push(m);});fam=[];pend=null;conf=null;$("famMsg").textContent="Family deleted. All members are in Trash and can be restored.";drawFam();});
+  $("famReset").addEventListener("click",reset);
+  reset();
+
+  /* demo 3: report filters */
+  var D=[["Arul K.","Male",52,"Member","Married","Yes","Salem"],["Meena A.","Female",48,"Member","Married","Yes","Salem"],["Daniel A.","Male",24,"Youth","Single","Yes","Salem"],["Ruth A.","Female",11,"Child","Single","No","Salem"],["Selvam P.","Male",67,"Member","Widowed","Yes","Erode"],["Grace S.","Female",29,"Youth","Single","Yes","Erode"],["Joseph T.","Male",35,"Member","Married","No","Karur"],["Mercy T.","Female",33,"Member","Married","Yes","Karur"],["Jeba R.","Male",8,"Child","Single","No","Karur"],["Sarah N.","Female",71,"Member","Widowed","Yes","Erode"]];
+  var tcls={Member:"c-sky",Youth:"c-pri",Child:"c-amber",Yes:"c-teal",No:"c-rose"};
+  function runRep(){
+    var g=$("fG").value,m=$("fM").value,b=$("fB").value,t=$("fT").value,mn=$("fMin").value===""?0:+$("fMin").value,mx=$("fMax").value===""?999:+$("fMax").value,v=$("fV").value.trim().toLowerCase();
+    var res=D.filter(function(p){return (!g||p[1]===g)&&(!m||p[4]===m)&&(!b||p[5]===b)&&(!t||p[3]===t)&&p[2]>=mn&&p[2]<=mx&&(!v||p[6].toLowerCase().indexOf(v)>-1);});
+    var tb=$("repBody");tb.innerHTML="";
+    res.forEach(function(p){
+      var tr=document.createElement("tr");
+      p.forEach(function(c,i){var td=document.createElement("td");if(i===3||i===5){td.appendChild(el("span","chip "+tcls[c],c));}else td.textContent=c;tr.appendChild(td);});
+      tb.appendChild(tr);
+    });
+    if(!res.length){var tr=document.createElement("tr"),td=document.createElement("td");td.colSpan=7;td.textContent="No believers match these filters. Try removing one.";tr.appendChild(td);tb.appendChild(tr);}
+    $("repCount").textContent=res.length+" of "+D.length+" believers shown";
+  }
+  $("repCtl").addEventListener("input",runRep);$("repCtl").addEventListener("change",runRep);
+  $("repX").addEventListener("click",function(){say("Demo only. Excel export is available in the product.");});
+  $("repP").addEventListener("click",function(){say("Demo only. PDF export is available in the product.");});
+  runRep();
+
+  /* analytics donut and bars */
+  var ages=[["Children","0 to 12",18,"var(--amber)"],["Youth","13 to 29",24,"var(--pri)"],["Adults","30 to 59",46,"var(--teal)"],["Seniors","60 and above",12,"var(--rose)"]];
+  var dn=$("donut"),lg=$("legend"),segs=[],btns=[],sel=-1,NS="http://www.w3.org/2000/svg";
+  var trk=document.createElementNS(NS,"circle");trk.setAttribute("class","trk");trk.setAttribute("cx","21");trk.setAttribute("cy","21");trk.setAttribute("r","15.9155");dn.appendChild(trk);
+  var cum=0;
+  ages.forEach(function(a,i){
+    var c=document.createElementNS(NS,"circle");c.setAttribute("cx","21");c.setAttribute("cy","21");c.setAttribute("r","15.9155");c.setAttribute("stroke",a[3]);
+    c.setAttribute("stroke-dasharray","0 100");c.setAttribute("stroke-dashoffset",String(25-cum));cum+=a[2];dn.appendChild(c);segs.push(c);
+    var b=el("button","lg");b.type="button";b.style.setProperty("--c",a[3]);b.setAttribute("aria-pressed","false");
+    var d=el("span","dotc");d.style.background=a[3];b.appendChild(d);b.appendChild(el("span",null,a[0]));b.appendChild(el("small",null,a[2]+"%"));
+    b.addEventListener("click",function(){sel=sel===i?-1:i;paintD();});b.addEventListener("mouseenter",function(){sel=i;paintD();});
+    lg.appendChild(b);btns.push(b);
+  });
+  var t1=document.createElementNS(NS,"text"),t2=document.createElementNS(NS,"text");
+  t1.setAttribute("x","21");t1.setAttribute("y","20");t1.setAttribute("style","font:800 7px Outfit,sans-serif");
+  t2.setAttribute("x","21");t2.setAttribute("y","27");t2.setAttribute("style","font:600 2.6px DM Sans,sans-serif;fill:var(--ink-2)");
+  dn.appendChild(t1);dn.appendChild(t2);
+  function paintD(){
+    segs.forEach(function(c,i){var v=ages[i][2];c.setAttribute("stroke-dasharray",(v-.6)+" "+(100-v+.6));c.style.opacity=(sel===-1||sel===i)?1:.3;c.setAttribute("stroke-width",sel===i?7.6:6);btns[i].setAttribute("aria-pressed",sel===i?"true":"false");});
+    if(sel===-1){t1.textContent="100%";t2.textContent="All believers";}else{t1.textContent=ages[sel][2]+"%";t2.textContent=ages[sel][0]+", "+ages[sel][1];}
+  }
+  paintD();
+  dn.addEventListener("mouseleave",function(){});lg.addEventListener("mouseleave",function(){sel=-1;paintD();});
+  if(!rm){segs.forEach(function(c){c.setAttribute("stroke-dasharray","0 100");});requestAnimationFrame(function(){requestAnimationFrame(paintD);});}
+  var vil=[["Salem",34,"var(--pri)"],["Erode",27,"var(--rose)"],["Karur",21,"var(--teal)"],["Namakkal",15,"var(--amber)"],["Attur",9,"var(--sky)"]],vb=$("vbars");
+  vil.forEach(function(v,i){var r=el("div","vr"),b=el("div","bar"),f=document.createElement("i");f.style.width=(v[1]/34*100)+"%";f.style.background=v[2];f.style.animationDelay=(i*.1)+"s";b.appendChild(f);r.appendChild(el("span",null,v[0]));r.appendChild(b);r.appendChild(el("em",null,String(v[1])));vb.appendChild(r);});
+
+  $("themeBtn").addEventListener("click",function(){
+    var root=document.documentElement,cur=root.getAttribute("data-theme");
+    if(!cur)cur=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+    root.setAttribute("data-theme",cur==="dark"?"light":"dark");
+  });
+})();
+</script>
