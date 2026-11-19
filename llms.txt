@@ -1,0 +1,11 @@
+# Rhema BMS
+
+Believer and church management software for believer profiles, family records, reminders and congregation administration.
+
+## Website
+https://cbms.rhema.co.in/
+
+## Publisher
+Rhema Solutions — https://www.rhema.co.in/
+
+For current features and product availability, use the public website as the source of truth.
